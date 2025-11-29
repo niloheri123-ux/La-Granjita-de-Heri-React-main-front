@@ -29,9 +29,6 @@ export default function Productos() {
       <div className="productos-grid">
 
         {cargandoProductos && <p>Cargando productos...</p>}
-        {!cargandoProductos && productos.length === 0 && (
-          <p>No se encontraron productos para esta categoría.</p>
-        )}
         {!cargandoProductos &&
           productos.length > 0 &&
           productos.map((producto) => (
