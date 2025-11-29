@@ -1,7 +1,7 @@
 import React from 'react';
 import { Container, Row } from 'react-bootstrap';
 import products from '../data/Products';
-import ProductCard from '../components/organisms/ProductCard';
+import ProductCard from "../components/molecules/ProductCard2";
 
 import ProductoService from "../services/ProductoService";
 
@@ -36,7 +36,7 @@ export default function Productos() {
           productos.length > 0 &&
           productos.map((producto) => (
             <div key={producto.id} className="productos-item">
-              <ProductCard producto={producto} />
+              <ProductCard2 producto={producto} />
             </div>
           ))}
       </div>
