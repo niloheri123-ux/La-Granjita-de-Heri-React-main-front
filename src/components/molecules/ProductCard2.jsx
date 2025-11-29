@@ -1,19 +1,12 @@
 import { useNavigate } from "react-router-dom";
-import { useCart } from "../../context/CartContext";
 
 export default function ProductCard({ producto }) {
   const navigate = useNavigate();
-  const { addToCart } = useCart();
 
   if (!producto) return null;
   const { id, nombre, precio } = producto;
   const handleVerDetalle = () => {
     navigate(`/producto/${id}`);
-  };
-
-  const handleAgregarCarrito = () => {
-    addToCart(producto, 1);
-    alert("Producto agregado al carrito.");
   };
 
   return (
