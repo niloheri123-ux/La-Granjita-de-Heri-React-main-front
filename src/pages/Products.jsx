@@ -14,14 +14,13 @@ export default function Productos() {
     const cargarProductos = async () => {
       setCargandoProductos(true);
 
-      let data = [];
-      data = ProductoService.getAll();
+      const data = await ProductoService.getAll();
       setProductos(data || []);
       setCargandoProductos(false);
     };
 
     cargarProductos();
-  });
+  },[]);
 
   return (
     <div className="productos-page">
