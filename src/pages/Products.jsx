@@ -28,7 +28,6 @@ export default function Productos() {
     <div className="productos-page">
       <h1 className="productos-title">Productos</h1>
       <div className="productos-grid">
-        {cargandoProductos && <p>Cargando productos...</p>}
         {!cargandoProductos &&
           productos.length > 0 &&
           productos.map((producto) => (
