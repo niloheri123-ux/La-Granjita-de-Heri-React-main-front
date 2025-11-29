@@ -33,12 +33,6 @@ export default function ProductCard({ producto }) {
           >
             Ver detalle
           </button>
-          <button
-            type="button"
-            className="btn-carrito"
-          >
-            Agregar al carrito
-          </button>
         </div>
       </div>
     </article>
