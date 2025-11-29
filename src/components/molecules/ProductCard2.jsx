@@ -1,4 +1,6 @@
 import { useNavigate } from "react-router-dom";
+import "../../styles/components/molecules/ProductCard.css";
+
 
 export default function ProductCard({ producto }) {
   const navigate = useNavigate();
