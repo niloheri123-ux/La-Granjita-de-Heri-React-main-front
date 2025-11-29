@@ -69,7 +69,7 @@ export default function Cart() {
               <div key={item.producto.id} className="carrito-item">
                 <div className="carrito-item-info">
                   <h3>{item.producto.nombre || `Producto ${item.producto.id}`}</h3>
-                  <p>Precio unitario: ${item.producto.totalPrecio ?? 0}</p>
+                  <p>Precio unitario: ${item.producto.precio ?? 0}</p>
                 </div>
 
                 <div className="carrito-item-controles">
