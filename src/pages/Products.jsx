@@ -15,9 +15,7 @@ export default function Productos() {
       setCargandoProductos(true);
 
       let data = [];
-      if (categoriaSeleccionada === "todas") {
-        data = await ProductoService.getAll();
-      } 
+      data = await ProductoService.getAll();
       setProductos(data || []);
       setCargandoProductos(false);
     };
@@ -28,27 +26,8 @@ export default function Productos() {
   return (
     <div className="productos-page">
       <h1 className="productos-title">Productos</h1>
-
-      <div className="productos-filtro">
-        <label htmlFor="categoria-select">Filtrar por categoría:</label>
-        <select
-          id="categoria-select"
-          value={categoriaSeleccionada}
-          onChange={handleCategoriaChange}
-        >
-          <option value="todas">Todas las categorías</option>
-          {!cargandoCategorias &&
-            categorias.map((cat) => (
-              <option key={cat.id} value={cat.id}>
-                {cat.nombre ?? cat.categoria ?? `Categoría ${cat.id}`}
-              </option>
-            ))}
-        </select>
-      </div>
-
       <div className="productos-grid">
         {cargandoProductos && <p>Cargando productos...</p>}
-
         {!cargandoProductos && productos.length === 0 && (
           <p>No se encontraron productos para esta categoría.</p>
         )}
