@@ -36,7 +36,7 @@ export default function ProductCard({ producto }) {
           <button
             type="button"
             className="btn-carrito"
-            onClick={handleAgregarCarrito}
+            onClick={alert("helo")}
           >
             Agregar al carrito
           </button>
