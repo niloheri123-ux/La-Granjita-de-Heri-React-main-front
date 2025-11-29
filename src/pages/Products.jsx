@@ -28,10 +28,6 @@ export default function Productos() {
       <h1 className="productos-title">Productos</h1>
       <div className="productos-grid">
         {cargandoProductos && <p>Cargando productos...</p>}
-        {!cargandoProductos && productos.length === 0 && (
-          <p>No se encontraron productos para esta categoría.</p>
-        )}
-
         {!cargandoProductos &&
           productos.length > 0 &&
           productos.map((producto) => (
@@ -43,7 +39,7 @@ export default function Productos() {
     </div>
   );
 
-
+}
   /*
   return (
     <Container className="my-5">
@@ -57,4 +53,3 @@ export default function Productos() {
       </Row>
     </Container>
   )*/
-}
