@@ -1,4 +1,5 @@
 import React from 'react';
+import { useEffect, useState } from "react";
 import { Container, Row } from 'react-bootstrap';
 import products from '../data/Products';
 import ProductCard2 from "../components/molecules/ProductCard2";
