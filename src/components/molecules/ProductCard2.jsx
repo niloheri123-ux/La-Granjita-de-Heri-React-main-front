@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import "../../styles/components/molecules/ProductCard.css";
+import "../../styles/ProductCard.css";
 
 
 export default function ProductCard({ producto }) {
