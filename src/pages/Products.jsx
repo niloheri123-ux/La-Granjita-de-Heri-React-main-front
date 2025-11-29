@@ -1,9 +1,8 @@
 import React from 'react';
 import { useEffect, useState } from "react";
 import { Container, Row } from 'react-bootstrap';
-import products from '../data/Products';
-import ProductCard2 from "../components/molecules/ProductCard2";
 
+import ProductCard2 from "../components/molecules/ProductCard2";
 import ProductoService from "../services/ProductoService";
 
 
@@ -16,7 +15,7 @@ export default function Productos() {
       setCargandoProductos(true);
 
       let data = [];
-      data = await ProductoService.getAll();
+      data = ProductoService.getAll();
       setProductos(data || []);
       setCargandoProductos(false);
     };
@@ -28,6 +27,11 @@ export default function Productos() {
     <div className="productos-page">
       <h1 className="productos-title">Productos</h1>
       <div className="productos-grid">
+
+        {cargandoProductos && <p>Cargando productos...</p>}
+        {!cargandoProductos && productos.length === 0 && (
+          <p>No se encontraron productos para esta categoría.</p>
+        )}
         {!cargandoProductos &&
           productos.length > 0 &&
           productos.map((producto) => (
