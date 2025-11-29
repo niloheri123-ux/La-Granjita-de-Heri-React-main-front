@@ -1,7 +1,7 @@
 import React from 'react';
 import { Container, Row } from 'react-bootstrap';
 import products from '../data/Products';
-import ProductCard from "../components/molecules/ProductCard2";
+import ProductCard2 from "../components/molecules/ProductCard2";
 
 import ProductoService from "../services/ProductoService";
 
