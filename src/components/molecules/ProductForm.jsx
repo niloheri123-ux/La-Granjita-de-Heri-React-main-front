@@ -11,8 +11,6 @@ export default function ProductoForm({
     precio: "",
     imagenUrl: "",
     descripcion: "",
-    stock: "",
-    categoriaId: "",
   });
 
   useEffect(() => {
@@ -22,8 +20,6 @@ export default function ProductoForm({
         precio: initialData.precio ?? "",
         imagenUrl: initialData.imagenUrl || "",
         descripcion: initialData.descripcion || "",
-        stock: initialData.stock ?? "",
-        categoriaId: initialData.categoriaId ?? "",
       });
     } else {
       setFormData({
@@ -31,8 +27,6 @@ export default function ProductoForm({
         precio: "",
         imagenUrl: "",
         descripcion: "",
-        stock: "",
-        categoriaId: "",
       });
     }
   }, [initialData]);
