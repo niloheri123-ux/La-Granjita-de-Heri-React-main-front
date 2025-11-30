@@ -1,6 +1,7 @@
 import React from 'react';
 import { useEffect, useState } from "react";
 import { Container, Row } from 'react-bootstrap';
+import "../styles/Productos.css";
 
 import ProductCard2 from "../components/molecules/ProductCard2";
 import ProductoService from "../services/ProductoService";
