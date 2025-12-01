@@ -1,5 +1,4 @@
 import { useNavigate } from "react-router-dom";
-import { useCart } from "../../context/CartContext";
 import Button from "../atoms/Button";
 
 
