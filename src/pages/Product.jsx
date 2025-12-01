@@ -36,7 +36,7 @@ export default function Producto() {
     return (
       <div className="producto-page">
         <p>Producto no encontrado.</p>
-        <Button onClick={() => navigate("/productos")}>
+        <Button onClick={() => navigate("/products")}>
           Volver a productos
         </Button>
       </div>
@@ -47,7 +47,7 @@ export default function Producto() {
     <div className="producto-page">
       <ProductDetail
         producto={producto}
-        onVolver={() => navigate("/productos")}
+        onVolver={() => navigate("/products")}
       />
     </div>
   );

@@ -24,7 +24,7 @@ function ProductCard({ product }) {
           price={product.price}
         />
 
-        <Button variant="success" onClick={() => navigate(`/products/${product.id}`)}>
+        <Button variant="success">
           Ver detalles
         </Button>
 

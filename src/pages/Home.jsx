@@ -23,11 +23,6 @@ function Home() {
           <Button variant="success" onClick={() => navigate(`/products`)}>Ver Productos</Button>
         </Card.Body>
     </Card>
-          <Row >
-        {products.map((product) => (
-          <ProductCard key={product.id} product={product} />
-        ))}
-      </Row>
     </Container>
   );
 }
