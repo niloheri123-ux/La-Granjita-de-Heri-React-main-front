@@ -6,7 +6,7 @@ import { BrowserRouter } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './styles/global.css';
 import { CartProvider } from './components/context/CartContext.jsx';
-import { AuthProvider } from "./context/AuthContext";
+import { AuthProvider } from "./components/context/AuthContex.jsx";
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
