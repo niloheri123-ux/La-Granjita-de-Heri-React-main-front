@@ -82,7 +82,7 @@ export default function LoginForm() {
         <div className="login-form__register-link">
           <p>
             ¿No tienes una cuenta?{" "}
-            <Link to="/registrar">Regístrate ahora</Link>
+            <Link to="/CrearUsuario">Regístrate ahora</Link>
           </p>
         </div>
       </form>
