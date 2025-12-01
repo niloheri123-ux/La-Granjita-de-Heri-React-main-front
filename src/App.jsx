@@ -3,7 +3,7 @@ import { Routes, Route } from 'react-router-dom';
 import NavBar from './components/organisms/Navbar';
 import Home from './pages/Home';
 import Products from './pages/Products';
-import ProductDetail from './pages/ProductDetail';
+import Product from './pages/Product.jsx';
 import NotFound from './pages/NotFound';
 import Contact from './pages/Contact';
 import Blog1 from './pages/Blog1';
@@ -21,7 +21,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/products" element={<Products />} />
-        <Route path="/products/:id" element={<ProductDetail />} />
+        <Route path="/product/:id" element={<Product />} />
           <Route path="/contact" element={<Contact />} />
         <Route path="*" element={<NotFound />} />
         <Route path="/Blogs" element={<Blogs />} />

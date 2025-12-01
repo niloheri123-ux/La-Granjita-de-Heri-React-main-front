@@ -41,16 +41,3 @@ export default function Productos() {
   );
 
 }
-  /*
-  return (
-    <Container className="my-5">
-      <h1>Productos</h1>
-      <Row >
-        {!cargandoProductos &&
-          productos.length > 0 &&
-          productos.map((producto)=> (
-          <ProductCard key={producto.id} producto={producto} />
-        ))}
-      </Row>
-    </Container>
-  )*/

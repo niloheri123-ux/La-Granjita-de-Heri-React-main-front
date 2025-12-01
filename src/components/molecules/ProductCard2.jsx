@@ -7,7 +7,7 @@ export default function ProductCard({ producto }) {
   if (!producto) return null;
   const { id, nombre, precio, imagenUrl } = producto;
   const handleVerDetalle = () => {
-    navigate(`/producto/${id}`);
+    navigate(`/product/${id}`);
   };
 
   return (
