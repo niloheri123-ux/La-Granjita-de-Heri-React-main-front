@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import Button from "../atoms/Button";
-import { useAuth } from "../context/AuthContext";
-import { useCart } from "../context/CartContext";
+import { useAuth } from "../context/AuthContex";
+import { useCart } from "../context/CartContext"; 
 
 
 export default function ProductDetail({ producto, onVolver }) {
