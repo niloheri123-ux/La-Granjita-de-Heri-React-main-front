@@ -32,7 +32,7 @@ export default function RegisterForm() {
 
     try {
       await register({
-        nombreUsuario: formData.nombre,
+        nombre: formData.nombre,
         correo: formData.correo,
         contrasena: formData.contrasena,
       });
