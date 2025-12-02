@@ -20,7 +20,22 @@ function NavBar() {
             <Nav.Link href="/Blogs">Blog</Nav.Link>
             <Nav.Link href="/contact">Contacto</Nav.Link>
             <Nav.Link href="/Cart">Carrito</Nav.Link>
-            <Nav.Link href="/InicioSesion">Iniciar Sesion</Nav.Link>
+            {usuario ? (
+          <button
+            type="button"
+            className="navbar-logout-button"
+            onClick={() => {
+              closeGestion();
+              handleLogout();
+            }}
+          >
+            Desconectar
+          </button>
+        ) : (
+          <NavLink to="/ingresar" onClick={closeGestion}>
+            Ingresar
+          </NavLink>
+        )}
             <Nav.Link href="/CrearUsuario" >Crear Usuario</Nav.Link>
           </Nav>
         </Navbar.Collapse>
