@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import "../styles/global.css";
 import { useCart } from "../components/context/CartContext";
 import Button from "../components/atoms/Button";
-import CartService from "../services/CartService";
+import CarritoService from "../services/CarritoService";
 
 export default function Cart() {
   const {
@@ -22,7 +22,7 @@ export default function Cart() {
   useEffect(() => {
     const cargar = async () => {
       try {
-        const data = await CartService.obtenerCarrito(carritoId);
+        const data = await CarritoService.obtenerCarrito(carritoId);
         setCart(data.productos); // sincroniza carrito local con BD
       } catch (e) {
         console.error("Error cargando carrito", e);
@@ -47,7 +47,7 @@ export default function Cart() {
     if (items.length === 0) return;
     if (!window.confirm("¿Seguro que deseas vaciar el carrito?")) return;
 
-    await CartService.vaciarCarrito(carritoId);
+    await CarritoService.vaciarCarrito(carritoId);
     clearCart();
   };
 
@@ -75,7 +75,7 @@ export default function Cart() {
       });
 
       // limpiar carrito backend
-      await CartService.vaciarCarrito(carritoId);
+      await CarritoService.vaciarCarrito(carritoId);
 
       clearCart();
       setMostrandoConfirmacion(false);
