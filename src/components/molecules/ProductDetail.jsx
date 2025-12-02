@@ -58,7 +58,7 @@ export default function ProductDetail({ producto, onVolver }) {
 
         <p className="producto-detalle-descripcion">{textoDescripcion}</p>
 
-        <div className="producto-detalle-acciones">
+        <div className="producto-detalle-acciones"> 
           <Button
             className="producto-btn producto-btn-carrito"
             onClick={handleAgregarCarrito}
