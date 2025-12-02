@@ -13,8 +13,8 @@ export const AuthProvider = ({ children }) => {
     }
   }, []);
 
-  const login = async (email, password) => {
-    const user = await UsuarioService.login(email, password);
+  const login = async (correo, contrasena) => {
+    const user = await UsuarioService.login(correo, contrasena);
     setUsuario(user);
     localStorage.setItem("grn_heri_usuario", JSON.stringify(user));
   };

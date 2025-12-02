@@ -6,10 +6,10 @@ const API_URL = "https://la-granjita-de-heri-back.onrender.com/api/usuarios";
 const DEFAULT_ROL_ID = 1;        // Rol "Usuario" normal (no admin)
 
 const UsuarioService = {
-  login: async (email, contrasena) => {
+  login: async (correo, contrasena) => {
     try {
       const res = await axios.post(`${API_URL}/login`, {
-        email,
+        correo,
         contrasena,
       });
       return res.data;
@@ -19,11 +19,11 @@ const UsuarioService = {
     }
   },
 
-  register: async ({ nombreUsuario, email, contrasena }) => {
+  register: async ({ nombreUsuario, correo, contrasena }) => {
     try {
       const body = {
         nombreUsuario,
-        email,
+        correo,
         contrasena,
         rol: { id: DEFAULT_ROL_ID },
       };

@@ -6,8 +6,8 @@ export default function RegisterForm() {
   const [formData, setFormData] = useState({
     nombre: "",
     correo: "",
-    contrasenia: "",
-    confirmarContrasenia: "",
+    contrasena: "",
+    confirmarcontrasena: "",
   });
 
   const { register } = useAuth();
@@ -24,7 +24,7 @@ export default function RegisterForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (formData.contrasenia !== formData.confirmarContrasenia) {
+    if (formData.contrasena !== formData.confirmarcontrasena) {
       alert("Las contraseñas no coinciden.");
       return;
     }
@@ -33,8 +33,8 @@ export default function RegisterForm() {
     try {
       await register({
         nombreUsuario: formData.nombre,
-        email: formData.correo,
-        password: formData.contrasenia,
+        correo: formData.correo,
+        contrasena: formData.contrasena,
       });
 
       alert("Cuenta creada correctamente.");
@@ -78,9 +78,9 @@ export default function RegisterForm() {
         <div className="login-form__input-box">
           <input
             type="password"
-            name="contrasenia"
+            name="contrasena"
             placeholder="Contraseña"
-            value={formData.contrasenia}
+            value={formData.contrasena}
             onChange={handleChange}
             required
             className="login-form__input"
@@ -91,9 +91,9 @@ export default function RegisterForm() {
         <div className="login-form__input-box">
           <input
             type="password"
-            name="confirmarContrasenia"
+            name="confirmarcontrasena"
             placeholder="Confirmar contraseña"
-            value={formData.confirmarContrasenia}
+            value={formData.confirmarcontrasena}
             onChange={handleChange}
             required
             className="login-form__input"

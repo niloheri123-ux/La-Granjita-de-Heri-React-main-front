@@ -5,7 +5,7 @@ import { useAuth } from "../context/AuthContex";
 export default function LoginForm() {
   const [formData, setFormData] = useState({
     correo: "",
-    password: "",
+    contrasena: "",
     recordar: false,
   });
 
@@ -24,7 +24,7 @@ export default function LoginForm() {
     e.preventDefault();
 
     try {
-      await login(formData.correo, formData.password);
+      await login(formData.correo, formData.contrasena);
       navigate("/");
     } catch (error) {
       alert("Error al iniciar sesión. Verifica tus credenciales.");
@@ -52,9 +52,9 @@ export default function LoginForm() {
         <div className="login-form__input-box">
           <input
             type="password"
-            name="password"
+            name="contrasena"
             placeholder="Contraseña"
-            value={formData.password}
+            value={formData.contrasena}
             onChange={handleChange}
             required
             className="login-form__input"
