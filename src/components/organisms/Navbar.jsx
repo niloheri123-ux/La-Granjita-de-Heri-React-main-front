@@ -4,8 +4,18 @@ import Image from '../atoms/Image';
 import '../../styles/global.css';
 import '../../styles/navbar.css';
 import Here2 from "../../assets/img/here2.webp"
+import { useAuth } from "../context/AuthContex";
+import { NavLink, useNavigate } from "react-router-dom";
 
-function NavBar() {
+export default function NavBar() {
+  const { usuario, logout } = useAuth();
+  const navigate = useNavigate();
+
+
+  const handleLogout = () => {
+    logout();
+    navigate("/");
+  };
   return (
     <Navbar id="navbar" variant="dark" expand="lg" >
       <Container>
@@ -25,7 +35,6 @@ function NavBar() {
             type="button"
             className="navbar-logout-button"
             onClick={() => {
-              closeGestion();
               handleLogout();
             }}
           >
@@ -44,4 +53,4 @@ function NavBar() {
   );
 }
 
-export default NavBar;
+
