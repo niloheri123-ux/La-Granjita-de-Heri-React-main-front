@@ -41,8 +41,8 @@ export default function NavBar() {
             Desconectar
           </button>
         ) : (
-          <NavLink to="/ingresar" onClick={closeGestion}>
-            Ingresar
+          <NavLink to="/InicioSesion">
+            Iniciar Sesion
           </NavLink>
         )}
             <Nav.Link href="/CrearUsuario" >Crear Usuario</Nav.Link>
