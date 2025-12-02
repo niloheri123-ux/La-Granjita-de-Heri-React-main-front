@@ -4,6 +4,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import Image from "../components/atoms/Image.jsx";
 import Text from "../components/atoms/Text.jsx";
 import Button from "../components/atoms/Button.jsx";
+import CarritoService from "../services/CarritoService";
 import "../styles/ProductDetailStyle.css";
 
 function ProductDetail() {
@@ -11,37 +12,38 @@ function ProductDetail() {
   const navigate = useNavigate();
 
   const [product, setProduct] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [cargando, setCargando] = useState(true);
 
-  // 🔥 1) Cargar producto desde BACKEND
+  const carritoId = 1; // ⚠️ Más adelante: usar ID real del usuario
+
   useEffect(() => {
-    const fetchProduct = async () => {
+    const fetchProducto = async () => {
       try {
-        const res = await fetch(`http://localhost:8080/api/productos/${id}`);
-        if (!res.ok) throw new Error("No encontrado");
-
-        const data = await res.json();
+        const data = await CarritoService.obtenerProducto(id);
         setProduct(data);
+        setCargando(false);
       } catch (error) {
-        setProduct(null);
-      } finally {
-        setLoading(false);
+        console.error(error);
+        setCargando(false);
       }
     };
 
-    fetchProduct();
+    fetchProducto();
   }, [id]);
 
-  // 🔥 2) Mostrar mientras carga
-  if (loading) {
-    return (
-      <Container className="my-5">
-        <h2>Cargando producto...</h2>
-      </Container>
-    );
-  }
+  const handleAgregar = async () => {
+    try {
+      const updatedCart = await CarritoService.agregarProducto(carritoId, id);
+      alert("Producto agregado al carrito correctamente");
+      console.log("Carrito:", updatedCart);
+    } catch (error) {
+      alert("Error al agregar producto");
+      console.error(error);
+    }
+  };
 
-  // 🔥 3) Si NO existe el producto
+  if (cargando) return <Container>Cargando producto...</Container>;
+
   if (!product) {
     return (
       <Container className="my-5">
@@ -50,26 +52,9 @@ function ProductDetail() {
     );
   }
 
-  // 🔥 4) Llamar al backend para agregar al carrito
-  const agregarAlCarrito = async () => {
-    const carritoId = 1; // ⚠️ usa el carrito real del usuario luego
-
-    const response = await fetch(
-      `http://localhost:8080/api/carritos/${carritoId}/agregar/${product.id}`,
-      { method: "POST" }
-    );
-
-    if (!response.ok) {
-      alert("Error al agregar al carrito");
-      return;
-    }
-
-    alert("Producto añadido al carrito!");
-  };
-
   return (
     <Container className="my-5">
-      <Button variant="success" onClick={() => navigate(`/products`)}>
+      <Button variant="success" onClick={() => navigate("/products")}>
         Volver
       </Button>
 
@@ -85,7 +70,7 @@ function ProductDetail() {
           <Text variant="p">{product.description}</Text>
           <Text variant="h4">${product.price}</Text>
 
-          <Button variant="success" onClick={agregarAlCarrito}>
+          <Button variant="success" onClick={handleAgregar}>
             Añadir al Carrito
           </Button>
         </Card.Body>
@@ -95,3 +80,4 @@ function ProductDetail() {
 }
 
 export default ProductDetail;
+
