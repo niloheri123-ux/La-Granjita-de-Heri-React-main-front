@@ -4,7 +4,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import Image from "../components/atoms/Image";
 import Text from "../components/atoms/Text";
 import Button from "../components/atoms/Button";
-import CarritoService from "../services/CarritoService";
+import CartService from "../services/CartService";
 import "../styles/ProductDetailStyle.css";
 
 function ProductDetail() {
@@ -19,7 +19,7 @@ function ProductDetail() {
   useEffect(() => {
     const fetchProducto = async () => {
       try {
-        const data = await CarritoService.obtenerProducto(id);
+        const data = await CartService.obtenerProducto(id);
         setProduct(data);
       } catch (error) {
         console.error(error);
@@ -33,7 +33,7 @@ function ProductDetail() {
 
   const handleAgregarCarrito = async () => {
     try {
-      await CarritoService.agregarProducto(carritoId, id);
+      await CartService.agregarProducto(carritoId, id);
       alert("Producto agregado al carrito");
     } catch (error) {
       console.error("Error al agregar al carrito:", error);
