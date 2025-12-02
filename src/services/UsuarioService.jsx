@@ -17,12 +17,12 @@ const UsuarioService = {
       console.error("Error al iniciar sesión:", error);
       throw error;
     }
-  },
+  },  
 
-  register: async ({ nombreUsuario, correo, contrasena }) => {
+  register: async ({ nombre, correo, contrasena }) => {
     try {
       const body = {
-        nombreUsuario,
+        nombre,
         correo,
         contrasena,
         rol: { id: DEFAULT_ROL_ID },
