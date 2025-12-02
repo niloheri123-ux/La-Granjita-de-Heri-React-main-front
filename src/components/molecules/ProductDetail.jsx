@@ -61,7 +61,7 @@ export default function ProductDetail({ producto, onVolver }) {
         <div className="producto-detalle-acciones">
           <Button
             className="producto-btn producto-btn-carrito"
-            /*onClick={handleAgregarCarrito}*/
+            onClick={handleAgregarCarrito}
           >
             Agregar al carrito
           </Button>
