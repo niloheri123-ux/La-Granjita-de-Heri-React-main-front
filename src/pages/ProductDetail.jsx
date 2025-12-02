@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Container, Card } from "react-bootstrap";
 import { useParams, useNavigate } from "react-router-dom";
-import Image from "../components/atoms/Image.jsx";
-import Text from "../components/atoms/Text.jsx";
-import Button from "../components/atoms/Button.jsx";
+import Image from "../components/atoms/Image";
+import Text from "../components/atoms/Text";
+import Button from "../components/atoms/Button";
 import CarritoService from "../services/CarritoService";
 import "../styles/ProductDetailStyle.css";
 
@@ -14,16 +14,16 @@ function ProductDetail() {
   const [product, setProduct] = useState(null);
   const [cargando, setCargando] = useState(true);
 
-  const carritoId = 1; // ⚠️ Más adelante: usar ID real del usuario
+  const carritoId = 1; // ← usarás el carrito real cuando implementes usuarios
 
   useEffect(() => {
     const fetchProducto = async () => {
       try {
         const data = await CarritoService.obtenerProducto(id);
         setProduct(data);
-        setCargando(false);
       } catch (error) {
         console.error(error);
+      } finally {
         setCargando(false);
       }
     };
@@ -31,18 +31,17 @@ function ProductDetail() {
     fetchProducto();
   }, [id]);
 
-  const handleAgregar = async () => {
+  const handleAgregarCarrito = async () => {
     try {
-      const updatedCart = await CarritoService.agregarProducto(carritoId, id);
-      alert("Producto agregado al carrito correctamente");
-      console.log("Carrito:", updatedCart);
+      await CarritoService.agregarProducto(carritoId, id);
+      alert("Producto agregado al carrito");
     } catch (error) {
-      alert("Error al agregar producto");
-      console.error(error);
+      console.error("Error al agregar al carrito:", error);
+      alert("No se pudo agregar al carrito");
     }
   };
 
-  if (cargando) return <Container>Cargando producto...</Container>;
+  if (cargando) return <Container>Cargando...</Container>;
 
   if (!product) {
     return (
@@ -64,13 +63,12 @@ function ProductDetail() {
           alt={product.name}
           className="card-img-top ImgDetail"
         />
-
         <Card.Body>
           <Text variant="h2">{product.name}</Text>
           <Text variant="p">{product.description}</Text>
           <Text variant="h4">${product.price}</Text>
 
-          <Button variant="success" onClick={handleAgregar}>
+          <Button variant="success" onClick={handleAgregarCarrito}>
             Añadir al Carrito
           </Button>
         </Card.Body>
@@ -80,4 +78,3 @@ function ProductDetail() {
 }
 
 export default ProductDetail;
-
