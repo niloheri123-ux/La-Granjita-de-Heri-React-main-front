@@ -1,65 +1,56 @@
-import { createContext, useContext, useState, useEffect } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 
-// Crear contexto
-const CartContext = createContext();
+const CartContext = createContext(null);
 
-// Hook para consumir el contexto
-export const useCart = () => useContext(CartContext);
-
-// Provider
 export const CartProvider = ({ children }) => {
   const [items, setItems] = useState([]);
 
-  // Cargar carrito desde localStorage
   useEffect(() => {
-    const stored = localStorage.getItem("heri_cart");
-    if (stored) setItems(JSON.parse(stored));
+    const stored = localStorage.getItem("kozi_cart");
+    if (stored) {
+      setItems(JSON.parse(stored));
+    }
   }, []);
 
-  // Guardar carrito en localStorage
   useEffect(() => {
-    localStorage.setItem("heri_cart", JSON.stringify(items));
+    localStorage.setItem("kozi_cart", JSON.stringify(items));
   }, [items]);
 
-  // Agregar al carrito
-  const addItem = (producto) => {
+  const addToCart = (producto, cantidad = 1) => {
     setItems((prev) => {
-      const existe = prev.find((i) => i.producto.id === producto.id);
-
-      if (existe) {
+      const existing = prev.find((i) => i.producto.id === producto.id);
+      if (existing) {
         return prev.map((i) =>
           i.producto.id === producto.id
-            ? { ...i, cantidad: i.cantidad + 1 }
+            ? { ...i, cantidad: i.cantidad + cantidad }
             : i
         );
       }
-
-      return [...prev, { producto, cantidad: 1 }];
+      return [...prev, { producto, cantidad }];
     });
   };
 
-  // Actualizar cantidad
-  const updateQuantity = (productoId, cantidad) => {
-    setItems((prev) =>
-      prev.map((i) =>
-        i.producto.id === productoId
-          ? { ...i, cantidad }
-          : i
-      )
-    );
-  };
-
-  // Eliminar un producto del carrito
   const removeFromCart = (productoId) => {
     setItems((prev) => prev.filter((i) => i.producto.id !== productoId));
   };
 
-  // Vaciar carrito
+  const updateQuantity = (productoId, nuevaCantidad) => {
+    if (nuevaCantidad <= 0) {
+      setItems((prev) => prev.filter((i) => i.producto.id !== productoId));
+      return;
+    }
+    setItems((prev) =>
+      prev.map((i) =>
+        i.producto.id === productoId ? { ...i, cantidad: nuevaCantidad } : i
+      )
+    );
+  };
+
   const clearCart = () => setItems([]);
 
-  // Total del carrito
+  const totalItems = items.reduce((acc, i) => acc + i.cantidad, 0);
   const totalPrecio = items.reduce(
-    (acc, item) => acc + item.producto.precio * item.cantidad,
+    (acc, i) => acc + (i.producto.precio || 0) * i.cantidad,
     0
   );
 
@@ -67,10 +58,11 @@ export const CartProvider = ({ children }) => {
     <CartContext.Provider
       value={{
         items,
-        addItem,
-        updateQuantity,
+        addToCart,
         removeFromCart,
+        updateQuantity,
         clearCart,
+        totalItems,
         totalPrecio,
       }}
     >
@@ -79,4 +71,4 @@ export const CartProvider = ({ children }) => {
   );
 };
 
-export default CartContext;
+export const useCart = () => useContext(CartContext);

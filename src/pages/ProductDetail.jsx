@@ -1,18 +1,47 @@
-import React from 'react';
-import { Container, Card } from 'react-bootstrap';
-import { useParams } from 'react-router-dom';
-import products from '../data/Products.js';
-import Image from '../components/atoms/Image.jsx';
-import Text from '../components/atoms/Text.jsx';
-import Button from '../components/atoms/Button.jsx';
-import { useNavigate } from 'react-router-dom';
-import '../styles/ProductDetailStyle.css'
+import React, { useEffect, useState } from "react";
+import { Container, Card } from "react-bootstrap";
+import { useParams, useNavigate } from "react-router-dom";
+import Image from "../components/atoms/Image";
+import Text from "../components/atoms/Text";
+import Button from "../components/atoms/Button";
+import CarritoService from "../services/CarritoService";
+import "../styles/ProductDetailStyle.css";
 
 function ProductDetail() {
   const { id } = useParams();
   const navigate = useNavigate();
-  const product = products.find((p) => p.id === parseInt(id));
-  const newImage = "../"+product.image
+
+  const [product, setProduct] = useState(null);
+  const [cargando, setCargando] = useState(true);
+
+  const carritoId = 1; // ← usarás el carrito real cuando implementes usuarios
+
+  useEffect(() => {
+    const fetchProducto = async () => {
+      try {
+        const data = await CarritoService.obtenerProducto(id);
+        setProduct(data);
+      } catch (error) {
+        console.error(error);
+      } finally {
+        setCargando(false);
+      }
+    };
+
+    fetchProducto();
+  }, [id]);
+
+  const handleAgregarCarrito = async () => {
+    try {
+      await CarritoService.agregarProducto(carritoId, id);
+      alert("Producto agregado al carrito");
+    } catch (error) {
+      console.error("Error al agregar al carrito:", error);
+      alert("No se pudo agregar al carrito");
+    }
+  };
+
+  if (cargando) return <Container>Cargando...</Container>;
 
   if (!product) {
     return (
@@ -24,20 +53,25 @@ function ProductDetail() {
 
   return (
     <Container className="my-5">
-      <Button variant="success" onClick={() => navigate(`/products`)}>
-          Volver
-        </Button>
+      <Button variant="success" onClick={() => navigate("/products")}>
+        Volver
+      </Button>
+
       <Card>
-        <Image src={newImage} alt={product.name} className="card-img-top ImgDetail"  />
+        <Image
+          src={product.image}
+          alt={product.name}
+          className="card-img-top ImgDetail"
+        />
         <Card.Body>
           <Text variant="h2">{product.name}</Text>
           <Text variant="p">{product.description}</Text>
           <Text variant="h4">${product.price}</Text>
-        <Button variant="success" onClick={() => navigate(`/products`)}>
-          Añadir al Carrito
-        </Button>
-        </Card.Body>
 
+          <Button variant="success" onClick={handleAgregarCarrito}>
+            Añadir al Carrito
+          </Button>
+        </Card.Body>
       </Card>
     </Container>
   );

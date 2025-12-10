@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "../styles/global.css";
 import { useCart } from "../components/context/CartContext";
 import Button from "../components/atoms/Button";
+import CarritoService from "../services/CarritoService";
 
 export default function Cart() {
   const {
@@ -10,10 +11,27 @@ export default function Cart() {
     updateQuantity,
     removeFromCart,
     clearCart,
+    setCart,
   } = useCart();
 
+  const [carritoId, setCarritoId] = useState(1); // ⚠️ Luego se obtiene del usuario logueado
   const [mostrandoConfirmacion, setMostrandoConfirmacion] = useState(false);
   const [procesandoCompra, setProcesandoCompra] = useState(false);
+
+  // 🔄 Cargar carrito real de la BD
+  useEffect(() => {
+    const cargar = async () => {
+      try {
+        const data = await CarritoService.obtenerCarrito(carritoId);
+        setCart(data.productos); // sincroniza carrito local con BD
+      } catch (e) {
+        console.error("Error cargando carrito", e);
+      }
+    };
+
+    cargar();
+  }, [carritoId]);
+
 
   const handleCambiarCantidad = (productoId, nuevaCantidad) => {
     const valor = parseInt(nuevaCantidad, 10);
@@ -25,11 +43,12 @@ export default function Cart() {
     removeFromCart(productoId);
   };
 
-  const handleVaciar = () => {
+  const handleVaciar = async () => {
     if (items.length === 0) return;
-    if (window.confirm("¿Seguro que deseas vaciar el carrito?")) {
-      clearCart();
-    }
+    if (!window.confirm("¿Seguro que deseas vaciar el carrito?")) return;
+
+    await CarritoService.vaciarCarrito(carritoId);
+    clearCart();
   };
 
   const handleFinalizarCompraClick = () => {
@@ -41,15 +60,32 @@ export default function Cart() {
     setMostrandoConfirmacion(true);
   };
 
-  const handleConfirmarCompra = () => {
-    setProcesandoCompra(true);
+  const handleConfirmarCompra = async () => {
+    try {
+      setProcesandoCompra(true);
 
-    setTimeout(() => {
+      // 🔥 Aquí se envía la compra a la BD (como el otro carrito)
+      await fetch("http://localhost:8080/api/pedidos", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          total: totalPrecio,
+          carritoId,
+        }),
+      });
+
+      // limpiar carrito backend
+      await CarritoService.vaciarCarrito(carritoId);
+
       clearCart();
-      setProcesandoConfirmacion(false);
+      setMostrandoConfirmacion(false);
       alert("Compra realizada exitosamente.");
+    } catch (e) {
+      alert("Error procesando la compra.");
+      console.error(e);
+    } finally {
       setProcesandoCompra(false);
-    }, 1500);
+    }
   };
 
   const handleCancelarCompra = () => {
@@ -68,8 +104,8 @@ export default function Cart() {
             {items.map((item) => (
               <div key={item.producto.id} className="carrito-item">
                 <div className="carrito-item-info">
-                  <h3>{item.producto.nombre || `Producto ${item.producto.id}`}</h3>
-                  <p>Precio unitario: ${item.producto.precio ?? 0}</p>
+                  <h3>{item.producto.nombre}</h3>
+                  <p>Precio unitario: ${item.producto.precio}</p>
                 </div>
 
                 <div className="carrito-item-controles">
@@ -147,4 +183,3 @@ export default function Cart() {
     </div>
   );
 }
-
