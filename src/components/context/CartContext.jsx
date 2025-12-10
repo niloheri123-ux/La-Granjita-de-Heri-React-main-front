@@ -6,14 +6,14 @@ export const CartProvider = ({ children }) => {
   const [items, setItems] = useState([]);
 
   useEffect(() => {
-    const stored = localStorage.getItem("kozi_cart");
+    const stored = localStorage.getItem("grn_heri_cart");
     if (stored) {
       setItems(JSON.parse(stored));
     }
   }, []);
 
   useEffect(() => {
-    localStorage.setItem("kozi_cart", JSON.stringify(items));
+    localStorage.setItem("grn_heri_cart", JSON.stringify(items));
   }, [items]);
 
   const addToCart = (producto, cantidad = 1) => {
