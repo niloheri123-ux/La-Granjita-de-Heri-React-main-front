@@ -1,14 +1,15 @@
 import { useNavigate } from "react-router-dom";
 import Button from "../atoms/Button";
-
+import { useAuth } from "../context/AuthContex";
+import { useCart } from "../context/CartContext";
 
 
 export default function ProductDetail({ producto, onVolver }) {
   const navigate = useNavigate();
-  /* 
+
   const { usuario } = useAuth();
   const { addToCart } = useCart();
-  */
+
   if (!producto) return null;
 
   const {
@@ -22,7 +23,7 @@ export default function ProductDetail({ producto, onVolver }) {
 
   const textoDescripcion =
     descripcion ?? descripcionProducto ?? "Sin descripción disponible.";
-  /*
+
   const handleAgregarCarrito = () => {
     if (!usuario) {
       alert("Debes iniciar sesión para agregar productos al carrito.");
@@ -32,7 +33,7 @@ export default function ProductDetail({ producto, onVolver }) {
 
     addToCart(producto, 1);
     alert("Producto agregado al carrito.");
-  };*/
+  };
 
   const handleVolverClick = () => {
     if (onVolver) {
@@ -60,7 +61,7 @@ export default function ProductDetail({ producto, onVolver }) {
         <div className="producto-detalle-acciones">
           <Button
             className="producto-btn producto-btn-carrito"
-            /*onClick={handleAgregarCarrito}*/
+            onClick={handleAgregarCarrito}
           >
             Agregar al carrito
           </Button>
