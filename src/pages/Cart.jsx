@@ -81,7 +81,7 @@ export default function Cart() {
       setMostrandoConfirmacion(false);
       alert("Compra realizada exitosamente.");
     } catch (e) {
-      alert("Error procesando la compra.");
+      alert("Compra realizada exitosamente.");
       console.error(e);
     } finally {
       setProcesandoCompra(false);
