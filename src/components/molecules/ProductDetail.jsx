@@ -27,7 +27,7 @@ export default function ProductDetail({ producto, onVolver }) {
   const handleAgregarCarrito = () => {
     if (!usuario) {
       alert("Debes iniciar sesión para agregar productos al carrito.");
-      navigate("/ingresar");
+      navigate("/InicioSesion");
       return;
     }
 
