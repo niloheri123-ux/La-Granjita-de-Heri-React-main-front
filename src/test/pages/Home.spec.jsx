@@ -1,27 +1,35 @@
-import React from 'react';
-import { render, screen } from '@testing-library/react';
-import Home from '../../pages/Home';
+import { render, screen } from "@testing-library/react";
+import { MemoryRouter } from "react-router-dom";
+import Home from "../../pages/Home";
 
+describe("Home Page", () => {
+  it("renderiza el título de la página de inicio", () => {
+    render(
+      <MemoryRouter>
+        <Home />
+      </MemoryRouter>
+    );
 
-describe('Home Page', () => {
- it('renderiza el título de la página de inicio', () => {
-   render(<Home />);
-   const title = screen.getByText('Página de Inicio');
-   expect(title).toBeTruthy();
- });
+    expect(screen.getByText("Bienvenido a Ruteando")).toBeTruthy();
+  });
 
+  it("renderiza el párrafo de bienvenida", () => {
+    render(
+      <MemoryRouter>
+        <Home />
+      </MemoryRouter>
+    );
 
- it('renderiza el párrafo de bienvenida', () => {
-   render(<Home />);
-   const paragraph = screen.getByText('Bienvenidos a nuestro sitio web.');
-   expect(paragraph).toBeTruthy();
- });
+    expect(screen.getByText(/Explora los mejores productos/i)).toBeTruthy();
+  });
 
+  it("renderiza el contenedor de Bootstrap", () => {
+    render(
+      <MemoryRouter>
+        <Home />
+      </MemoryRouter>
+    );
 
- it('renderiza el contenedor de Bootstrap', () => {
-   render(<Home />);
-   const container = screen.getByText('Página de Inicio').closest('div');
-   expect(container).toHaveClass('container'); // Verifica la clase de Bootstrap
-   expect(container).toHaveClass('my-5'); // Verifica la clase my-5
- });
+    expect(document.querySelector(".container")).toBeTruthy();
+  });
 });

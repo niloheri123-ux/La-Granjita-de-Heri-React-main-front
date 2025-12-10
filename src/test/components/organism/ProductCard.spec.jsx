@@ -4,15 +4,27 @@ import { RouterProvider, createMemoryRouter } from 'react-router-dom';
 import ProductCard from '../../../components/organisms/ProductCard';
 
 
-// Componente envolvente para mockear useNavigate
-const MockRouter = ({ children, mockNavigate }) => {
- const router = createMemoryRouter(
-   [{ path: '*', element: children }],
-   { initialEntries: ['/'] }
- );
- router.navigate = mockNavigate; // Inyectamos el mock de navigate
- return <RouterProvider router={router} />;
-};
+import { CartContext } from "../../../components/context/CartContext";
+
+describe("ProductCard", () => {
+  const mockAddItem = jest.fn();
+
+  const mockContext = {
+    addItem: mockAddItem
+  };
+
+  it("debe renderizar el nombre del producto", () => {
+    render(
+      <CartContext.Provider value={mockContext}>
+        <MockRouter mockNavigate={jest.fn()}>
+          <ProductCard product={{ name: "Producto Test", price: 1000 }} />
+        </MockRouter>
+      </CartContext.Provider>
+    );
+
+    expect(screen.getByText("Producto Test")).toBeInTheDocument();
+  });
+});
 
 
 describe('ProductCard Component', () => {

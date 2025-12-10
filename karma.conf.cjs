@@ -13,15 +13,35 @@ module.exports = function (config) {
      mode: 'development',
      module: {
        rules: [
-         {
-           test: /\.jsx?$/,
-           exclude: /node_modules/,
-           use: {
-             loader: 'babel-loader',
-             options: {
-               presets: ['@babel/preset-env', '@babel/preset-react'],
-             },
-           },
+
+        {
+            test: /\.css$/,
+            use: 'null-loader'
+        },
+
+        {
+          test: /\.(png|jpe?g|gif|svg|webp)$/i,
+          type: 'asset/resource'
+        },
+
+
+        {
+          test: /\.css$/,
+          use: ['style-loader', 'css-loader']
+        },
+
+        {
+          test: /\.(js|jsx)$/,
+          exclude: /node_modules/,
+          use: {
+            loader: 'babel-loader',
+            options: {
+              presets: [
+                '@babel/preset-env',
+                '@babel/preset-react'
+              ]
+            }
+          }
          },
          {
            test: /\.css$/,
@@ -50,3 +70,12 @@ module.exports = function (config) {
    ]
  });
 };
+
+
+
+// npm i -D style-loader css-loader babel-loader @babel/core @babel/preset-env @babel/preset-react
+
+
+// npm install --save-dev null-loader
+
+
